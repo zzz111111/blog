@@ -1,0 +1,58 @@
+<!doctype html>  <!-- 声明文档类型-->
+<html>
+<head>
+    <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>注册</title>
+    <meta name="Keyword" content="关键词,关键词">
+    <meta name="description" content="描述">
+    <!--样式-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/reg.css">
+    <script src="/js/Z-1.0.0.js"></script>
+</head>
+<body>
+<!--头部 start-->
+    <%include header.ejs%>
+<!--头部 end-->
+<!--reg stat-->
+    <div id="reg">
+        <div class="clearfix">
+            <p class="left fl">每个邮箱仅能申请一个账号</p>
+            <p class="right fr">已有账号, <a href="/login">立即登录</a> </p>
+        </div>
+        <div class="user reg-info">
+            <span>用户名</span>
+            <input type="text" name="user">
+            <p class="reg-details err-info hide">请输入正确的格式</p>
+            <p class="reg-details">账号的用户名,由数字、字母或者中文组成，最高8位</p>
+        </div>
+        <div class="email reg-info">
+            <span>邮箱</span>
+            <input type="text" name="email">
+            <p class="sameuser hide">该用户名已被注册</p>
+            <p class="reg-details err-info hide">当前尚不符合正确的邮箱格式</p>
+            <p class="reg-details"><em style="color:red;">作为登录账号,请填写未被此网站平台注册</em>，并未被此网站绑定的邮箱作为登录账号</p>
+        </div>
+        <div class="passowrd reg-info">
+            <span>密码</span>
+            <input type="password" id="password1" name="password">
+            <p class="reg-details err-info hide">当前密码尚不符合要求</p>
+            <p class="reg-details">字母、数字或者英文符号，最短8位,区分大小写</p>
+        </div>
+        <div class="password2 reg-info">
+            <span>确认密码</span>
+            <input type="password" name="password2">
+            <p class="reg-details err-info hide">当前输入的密码与第一次输入尚不一致,请继续输入</p>
+            <p class="reg-details">请再次输入密码</p>
+        </div>
+        <div class="reg-btn" id="reg-btn">人生苦短，立即注册</div>
+    </div>
+    <!--<div id="msg" class="msg">-->
+    </div>
+<!--reg end-->
+    <script src="/js/reg.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>  <!-- 声明文档类型-->
+<html>
+<head>
+    <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>文章列表</title>
+    <meta name="Keyword" content="关键词,关键词">
+    <meta name="description" content="描述">
+    <!--样式-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_657907_qhws5fy4mf426gvi.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="/css/article_detail.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/Z-1.0.0.js"></script>
+
+</head>
+<body>
+<% include header.ejs %>
+
+<!--main start-->
+<div class="main content">
+    <div class="main-ar fl">
+        <div class="mod-crumbs">
+            <span class="mod-breadcrumb">
+                <a href="http://localhost:3000">首页</a>
+                <i>&gt;</i>
+                <a href="javascript:;">前端开发</a>
+                <i>&gt;</i>
+                <a href="javascript:;">Js前端框架</a>
+                <i>&gt;</i> <%=data['title']%>
+            </span>
+        </div>
+        <div class="ar-text">
+            <h2 class="title"><%=data['title']%></h2>
+            <p class="data">
+                <span>
+                    <i class="iconfont icon-shijian1"></i>
+                    <%=data['time']%>
+                </span>
+                <span>作者:<%=data['username']%></span>
+                <span>
+                    <i class="iconfont icon-shijian1"></i>
+                    <%=data['readcout']%>人读过
+                </span>
+                <span>
+                    <i class="iconfont icon-shijian1"></i>
+                    <%=arpinglun.length%>条评论
+                </span>
+            </p>
+        </div>
+        <div class="log-text">
+            <p>
+                <%-data['content']%>
+            </p>
+        </div>
+        <p class="copy">「半年博客，如果觉得我的文章对您有用，请帮助本站成长」</p>
+        <div class="post-actions">
+            <span class="post-like action action-like">
+                <a data-articleid="<%=data['articleid']%>" id="zan" href="javascript:;" class="favorite">
+                    <i class="iconfont icon-zan"></i>
+                    赞(<span id="zanCount"><%=data['zan']%></span>)
+                </a>
+            </span>
+            <a href="javascript:;" class="action action-rewards">
+                <i class="iconfont icon-xiangqing"></i>
+                打赏
+            </a>
+        </div>
+        <div class="key-w">
+            <div class="single">
+                <i class="iconfont icon-xiangqing"></i>
+                标签:
+            </div>
+            <a href=""><%=data['tag']%></a>
+        </div>
+        <p class="text-post text-post-top">
+            <span>上一篇:</span>
+            <%if(articlePrevNext[0]){%>
+            <a href="<%=articlePrevNext[0]['articleid']%>.html"><%=articlePrevNext[0]['title']%></a>
+            <%}%>
+        </p>
+        <p class="text-post">
+            <span>下一篇:</span>
+            <%if(articlePrevNext[1]){%>
+            <a href="<%=articlePrevNext[1]['articleid']%>.html"><%=articlePrevNext[1]['title']%></a>
+            <%}%>
+        </p>
+        <div class="comments">
+            <textarea name="textarea-bf" id="textarea"></textarea>
+
+        </div>
+        <div class="btns">
+            <div class="btns-left">
+            </div>
+            <div class="btns-right">
+                <a href="javascript:;">
+                    <button class="btn-fw" data-articleid="<%=data['articleid']%>"></button>
+                </a>
+            </div>
+        </div>
+        <div class="comments-list">
+            <div class="comments-list-top">
+                <div class="cmt-list-type">
+                    <p>评论</p>
+                    <div class="bottom-border"></div>
+                    <div class="cmt-list-number">
+                        <span class="comment-number">
+                            <span class="cy-number"><%=pinguserCount[0]['count']%></span>人参与,
+                            <span class="cy-number"><%=arpinglun.length%></span>条评论
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-list-con">
+                <div class="comment-list-con-title">
+                    <span class="left-border"></span>
+                    最新评论
+                </div>
+                <ul class="comment-list-con-content">
+                    <%for(var j=0;j<arpinglun.length;j++){%>
+                    <li class="clearfix">
+                        <div class="img">
+                            <a href="javascript:;">
+                                <img src="<%=arpinglun[j]['userimg']%>" alt="">
+                            </a>
+                        </div>
+                        <div class="msg-wrap">
+                            <div class="meg-wrap-user">
+                                <span class="user-time-gw"><%=arpinglun[j]['ptime']%></span>
+                                <span class="user-name">
+                                    <a href="javascript:;"><%=arpinglun[j]['username']%></a>
+                                </span>
+                            </div>
+                            <p class="wrap-issue-gw">
+                                <span><%=arpinglun[j]['content']%></span>
+                            </p>
+                            <div class="btns-bar">
+                                <div class="btns-con">
+                                    <span>
+                                        <a href="javascript:;">回复</a>
+                                    </span>
+                                    <i class="iconfont icon-zan on"></i>
+                                    <i class="iconfont icon-cai"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--article right start-->
+    <div class="container-right">
+        <div class="aside">
+            <h3>本站简介</h3>
+            <img src="/images/article/s1.png" width="328" height="185" alt="">
+            <div class="textwidget">
+                <p>
+                    个人博客: xiaoye121.com，一个关注Web前端开发技术、关注用户体验、可以发表个人技术见解抒发个人情感的个人网站， 愿景：具有代表性的前端博客，期待您的参与
+                    <a href="">了解更多...</a>
+                </p>
+
+            </div>
+        </div>
+        <div class="conr-article-list base-com">
+            <h3 class="base-com-title">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gengduo"></i>
+                    大家喜欢
+                </a>
+            </h3>
+            <ul>
+                <%for(var k=0;k<articleReadCount.length;k++){%>
+                <li>
+                    <em><%=(k+1)%></em>
+                    <a href="/article/<%=articleReadCount[k]['articleid']%>.html" target="_blank"><%=articleReadCount[k]['title']%></a>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <div class="conr-article-type base-com">
+            <h3 class="base-com-title">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gengduo"></i>
+                    文章分类
+                </a>
+            </h3>
+            <div class="items clearfix">
+                <%for(var i=0;i<articleType.length;i++){%>
+                <a href=""><%=articleType[i]['tag']%>(<span><%=articleType[i]['count']%></span>)</a>
+                <%}%>
+            </div>
+        </div>
+        <div class="conr-article-reping base-com">
+            <h3 class="base-com-title">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gengduo"></i>
+                    最新评论
+                </a>
+            </h3>
+            <ul class="reping-list">
+                <%for(var i=0;i<articlePinglun.length;i++){%>
+                <li class="list-item">
+                    <div class="reping-avatar">
+                        <img width="50" height="50" src="<%=articlePinglun[i]['userimg']%>" alt="">
+                    </div>
+                    <div class="contavatar">
+                        <span class="reping-nickname"><%=articlePinglun[i]['username']%></span>
+                        <span class="reping-content">
+                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank"><%=articlePinglun[i]['title']%></a>
+                            </span>
+                        <span class="reping-title">
+                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank">
+                                    评:<%=articlePinglun[i]['content']%>
+                                </a>
+                            </span>
+                    </div>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <div class="conr-article-webinfo base-com">
+            <h3 class="base-com-title">
+                <a href="javascript:;">
+                    <i class="iconfont icon-gengduo"></i>
+                    站点统计
+                </a>
+            </h3>
+            <ul>
+                <li>文章: <span><%=articleCout%></span>篇</li>
+                <li>分类: <span><%=articleType.length%></span>个</li>
+                <li>运行: <span id="article-right_day">计算中--</span>天</li>
+                <li>访问: <span>100</span>次</li>
+                <li>更新: <span><%=newarticle['time']%></span></li>
+            </ul>
+        </div>
+    </div>
+    <!--article right end-->
+
+</div>
+
+<!--main end-->
+
+<% include footer.ejs%>
+<script src="/js/article_detail.js"></script>
+
+</body>
+</html>

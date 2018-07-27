@@ -1,0 +1,126 @@
+<!doctype html>  <!-- 声明文档类型-->
+<html>
+<head>
+    <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>文章详情页</title>
+    <meta name="Keyword" content="关键词,关键词">
+    <meta name="description" content="描述">
+    <!--样式-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_657907_qhws5fy4mf426gvi.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/updateuserinfo.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/Z-1.0.0.js"></script>
+
+</head>
+<body>
+
+<%include header.ejs %>
+    <div class="userinfo">
+        <h2>编辑资料</h2>
+        <ul class="userinfo-ul">
+            <li class="userinfo-li-username">
+                <span class="edit-item">昵称</span>
+                <span><%=locals.username%></span>
+                <input class="edit-new-name" placeholder="请输入新的昵称" />
+                <a class="edit-username-a" href="javascript:;">修改昵称</a>
+            </li>
+            <li>
+                <span class="edit-item usersay">个性签名</span>
+                <textarea id="edit-sign" maxlength="30" class="edit-ps"><%=userinfo['signture']%></textarea>
+            </li>
+            <li>
+                <span class="edit-item">性别</span>
+                <input class="edit-sex" type="radio" name="sex" value="1" <%if(userinfo['sex'] == '男'){%>checked <%}%> >
+                男
+                <input class="edit-sex edit-sex_female" type="radio" name="sex" <%if(userinfo['sex'] == '女'){%>checked <%}%> value="2">
+                女
+            </li>
+            <li>
+                <p style="padding-left:30px;">当前暂时不支持修改生日以及所在地，敬请期待****</p>
+            </li>
+            <li>
+                <span class="edit-item">生日</span>
+                <div class="select-box sb-year">
+                    <input type="text" id="edit-year" class="sb-selected" value="1995" readonly="readonly">
+                    <ul class="sb-list">
+                        <li class="sb-value" data-value="2018">2018</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                        <li class="sb-value" data-value="2017">2017</li>
+                    </ul>
+                </div>
+                <span>年</span>
+                <div class="select-box sb-month sb-number">
+                    <input type="text" class="sb-selected" value="01" readonly="readonly">
+                    <ul class="sb-list">
+                        <li class="sb-value" data-value="1">1</li>
+                        <li class="sb-value" data-value="2">2</li>
+                        <li class="sb-value" data-value="3">3</li>
+                        <li class="sb-value" data-value="4">4</li>
+                        <li class="sb-value" data-value="5">5</li>
+                        <li class="sb-value" data-value="6">6</li>
+                        <li class="sb-value" data-value="7">7</li>
+                        <li class="sb-value" data-value="8">8</li>
+                        <li class="sb-value" data-value="9">9</li>
+                        <li class="sb-value" data-value="10">10</li>
+                        <li class="sb-value" data-value="11">11</li>
+                        <li class="sb-value" data-value="12">12</li>
+                    </ul>
+                </div>
+                <span>月</span>
+                <div class="select-box sb-date sb-number">
+                    <input id="edit-date" class="sb-selected J_sb-selected" type="text" name="" value="01" readonly="readonly">
+                    <ul class="sb-list">
+                        <li class="sb-value" data-value="1">1</li>
+                        <li class="sb-value" data-value="2">2</li>
+                        <li class="sb-value" data-value="3">3</li>
+                    </ul>
+                </div>
+                <span>日</span>
+            </li>
+            <li>
+                <span class="edit-item">所在地</span>
+                <div class="select-box sb-prov">
+                    <input type="text" id="edit-area" class="sb-selected sb-selected-area" value="河北" readonly="readonly">
+                    <ul class="sb-list">
+                        <li class="sb-value" data-value="北京" data-index="0">北京</li>
+                        <li class="sb-value" data-value="上海" data-index="1">上海</li>
+                        <li class="sb-value" data-value="上海" data-index="1">上海</li>
+                        <li class="sb-value" data-value="上海" data-index="1">上海</li>
+                        <li class="sb-value" data-value="上海" data-index="1">上海</li>
+                        <li class="sb-value" data-value="上海" data-index="1">上海</li>
+                    </ul>
+                </div>
+                <div class="select-box sb-city">
+                    <input id="edit-location" class="sb-selected" type="text" name="" value="石家庄" readonly="readonly">
+                    <ul class="sb-list">
+                        <li data-index="0" data-p="北京">北京</li>
+                        <li data-index="0" data-p="北京">北京</li>
+                        <li data-index="0" data-p="北京">北京</li>
+                        <li data-index="0" data-p="北京">北京</li>
+                        <li data-index="0" data-p="北京">北京</li>
+                        <li data-index="0" data-p="北京">北京</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="edit-submit">
+                <a id="edit-submit" class="btn-submit clickstat" href="javascript:;">保存</a>
+            </li>
+        </ul>
+    </div>
+<%include footer.ejs%>
+
+<script src="/js/updateuserinfo.js"></script>
+
+</body>
+</html>

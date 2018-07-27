@@ -1,0 +1,121 @@
+<!doctype html>  <!-- 声明文档类型-->
+<html>
+<head>
+    <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>文章详情页</title>
+    <meta name="Keyword" content="关键词,关键词">
+    <meta name="description" content="描述">
+    <!--样式-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_657907_qhws5fy4mf426gvi.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/userinfo.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/Z-1.0.0.js"></script>
+
+</head>
+<body>
+
+<%include header.ejs %>
+
+    <div class="user-info clearfix">
+        <div class="userimg fl">
+            <img src="<%=locals.userimg%>" alt="">
+            <p>
+                <a class="userimg_a" href="/uploaduserimg.html">修改头像</a>
+            </p>
+        </div>
+        <div class="user-info-con fl">
+            <h3>
+                <%=locals.username%>
+                <i class="iconfont"></i>
+                <a href="">修改昵称</a>
+            </h3>
+            <p class="user-msg">
+                <span class="user_age"><i class="iconfont"></i> 23岁</span>
+                <span class="user_add"><i class="iconfont"></i>未知</span>
+                <span class="user_ps"><i class="iconfont"></i>
+                    <%if(articleData[0]['signture']){%>
+                        <%=articleData[0]['signture']%>
+                    <%}else{%>
+                    你还没有编辑个性签名
+                    <%}%>
+                </span>
+                <span class="user_update_info"><i class="iconfont"></i>
+                    <a href="/admin/updateuserinfo">编辑资料</a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div>
+        <ul class="userinfo_ul" id="left-text">
+            <% for(var i=0;i<articleData.length;i++){%>
+            <li class="text">
+                <div class="img-left">
+                    <a class="read-more" href="/article/<%=articleData[i]['articleid']%>.html" target="_blank">
+                        <img width="200" height="150" src="<%=articleData[i]['img']%>" alt="">
+                    </a>
+                </div>
+                <div class="text-right">
+                    <h2>
+                        <span><a href=""><%=articleData[i]['tag']%></a></span>
+                        <a href="/article/<%=articleData[i]['articleid']%>.html" target="_blank"><%=articleData[i]['title']%></a>
+                    </h2>
+                    <div class="entry-meta">
+                        <a href="">个人博客</a>
+                        <i class="space">•</i>
+                        <a href="">前端开发咨询</a>
+                        <i class="space">•</i>
+                        <span><%=articleData[i]['username']%></span>
+                    </div>
+                    <h3>
+                        <%=articleData[i]['introduce']%>
+                    </h3>
+                    <a href="/article/<%=articleData[i]['articleid']%>.html" target="_blank" class="readmore">
+                        阅读全文
+                        <i class="iconfont fav-che"></i>
+                    </a>
+                    <p class="ar-bottom">
+                            <span>
+                                <i class="iconfont icon-shijian"></i>
+                                &nbsp;<%=articleData[i]['time']%>
+                           </span>
+                        <span>
+                                <i class="iconfont icon-liulan2"></i>
+                                &nbsp;<%=articleData[i]['readcout']%>
+                            </span>
+                        <span class="comm">
+                                <a href="">
+                                    <i class="iconfont icon-pinglun"></i>
+                                    <span id="url::http://www.weipinxiu.com/1199.html" class="cy_cmt_count">12</span>
+                                    条评论
+                                </a>
+                            </span>
+                        <span class="post-like">
+                                <a href="javascript:;" class="favorite">
+                                    <i class="iconfont fa-thumbs-o-up"></i>
+                                </a>
+                            </span>
+                    </p>
+                </div>
+            </li>
+            <%}%>
+        </ul>
+        <div class="pagesnav">
+            <a class="first-page" href="javascript:;">首页</a>
+            <a class="prev-page" href="javascript:;"><</a>
+            <%for(var i=0;i<articleCout/7;i++){%>
+            <a class="page" href="javascript:;" data-url="/article/list-<%=i+1%>.html"><%=i+1%></a>
+            <%}%>
+            <a class="next-page" href="javascript:;">></a>
+            <a class="last-page" href="javascript:;">尾页</a>
+        </div>
+    </div>
+
+<%include footer.ejs%>
+
+<script src="/js/userinfo.js"></script>
+
+</body>
+</html>

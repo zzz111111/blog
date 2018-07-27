@@ -1,0 +1,29 @@
+body{background:none; background:#fff;}
+.userinfo{width:800px; height:500px; margin:auto;}
+.userinfo h2{display:inline-block; height:25px; border-left:3px solid #ff8800; padding:0 0 0 7px; font-size:24px; color: #333333; text-align:left; line-height:25px;}
+.userinfo-ul{margin-top:36px; font-size:14px; color:#777;}
+.userinfo-ul li{min-height:40px; margin-bottom:14px; line-height:40px;}
+
+.edit-item{display:inline-block; width:100px; text-align:right; margin-right:20px;}
+.edit-new-name{display:inline-block; width:200px; height:20px; margin-left:10px;}
+.edit-username-a {background:url("../images/admin/edit_693c067.png") no-repeat; margin-left:23px; padding-left:16px; color:#0099ff; font-size:12px;}
+.userinfo-ul .edit-ps{padding:0 5px;width:260px; height:78px; border:1px solid #ccc; border-radius:3px; font-size:14px; line-height:30px; color:#333; resize:none;}
+span.usersay{vertical-align:top;}
+.userinfo-ul .edit-sex{position:relative; top:2px; margin-right:5px;}
+.edit-sex_female{margin-left:20px;}
+.select-box input{padding:10px 0; outline:none;}
+.userinfo-ul .select-box{position:relative; display:inline-block; width:36px; padding-right:14px;}
+.userinfo-ul .sb-year{width:78px;}
+.select-box .sb-selected{width:100%; border:1px solid #ccc; border-radius:3px; background:url("../images/admin/icon_down_af6f68a.png") no-repeat right center; padding-right:14px;text-align:center;}
+
+.userinfo-ul .sb-list{display:none;position: absolute; top:38px; left:0; width:100%; max-height:200px; overflow-x:hidden; overflow-y:auto; text-align:center; background:#fff; border:1px solid #ccc; z-index: 999;}
+.select-box .sb-selected-area{display:inline-block; width:78px;}
+.select-box.sb-prov{width:78px;}
+.select-box.sb-city{width:78px; margin-left:14px;}
+.userinfo-ul .edit-submit{padding-left:124px;}
+.edit-submit .btn-submit{display:block; width:140px; height:40px; color:#fff; background-color:#f80; text-align:center; border-radius:3px;}
+.edit-submit .btn-submit:hover{background-color:#f16c00;}
+
+
+
+

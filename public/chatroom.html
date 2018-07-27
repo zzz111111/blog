@@ -1,0 +1,70 @@
+<!doctype html>  <!-- 声明文档类型-->
+<html>
+<head>
+    <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>websocket聊天界面</title>
+    <meta name="Keyword" content="关键词,关键词">
+    <meta name="description" content="描述">
+    <!--样式-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/chatroom.css">
+    <script src="/js/Z-1.0.0.js"></script>
+
+</head>
+<body>
+    <div id="chat">
+        <div class="sidebar">
+            <div class="m-card">
+                <div class="header">
+                    <img class="userimg" src="/images/chat/1.jpg" width="40" height="40" alt="">
+                    <p class="name">Coffee</p>
+                </div>
+                <div class="footer">
+                    <input class="search" placeholder="search user..." type="text">
+                </div>
+            </div>
+            <div class="m-list">
+                <ul>
+                    <li class="active">
+                        <img class="avator" src="/images/chat/say.jpg" alt="" width="30" height="30">
+                        <p class="name">畅所欲言</p>
+                    </li>
+                    <li class="">
+                        <img class="avator" src="/images/chat/javascript.jpg" alt="" width="30" height="30">
+                        <p class="name">技术问题</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="main">
+            <div class="m-message">
+                <ul>
+                    <li>
+                        <p class="time">
+                            <span>2018年6月15日15:07正式服务</span>
+                        </p>
+                        <div class="main">
+                            <img class="avator" width="30" height="30" src="/images/chat/1.jpg" alt="">
+                            <span>友情提示</span>
+                            <div class="text">
+                                Hello，这是一个基于node + websocket构建的简单chat示例，聊天记录保存在localStorge。简单演示了websocket的特性。
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="m-text">
+                <textarea id="textarea" placeholder="在这里编辑你想要发送的信息，按Ctrl+Enter键发送"></textarea>
+                <div id="submit">发送</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/socket.io.min.js"></script>
+    <script type="text/javascript" src="js/chatroom.js"></script>
+</body>
+</html>

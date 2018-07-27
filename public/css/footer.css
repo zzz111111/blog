@@ -1,0 +1,2 @@
+.footer{position:relative; z-index:9; clear:both; padding:30px 30px 4px; border-top:1px solid transparent; font-size:12px; line-height:12px; text-align:center; background:#333 url("../images/footer/footerBg.png") repeat; color:rgb(153, 153, 153); box-shadow:inset 0px 5px 10px 0px rgba(0, 0, 0, 0.8);}
+.container p{margin:0 0 20px; font-size:12px;}

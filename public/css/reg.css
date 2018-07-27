@@ -1,0 +1,71 @@
+@charset "utf-8";
+body{
+    background:none;
+    background-color:#F1F1EF;
+}
+#reg{
+    width:800px;
+    margin:auto;
+    padding:40px 0 40px 30px;
+    background:#fff;
+}
+#reg .left{
+    color:#666;
+}
+#reg .right{
+    margin-right:40px;
+}
+#reg .right a{
+    color:#0000cc;
+}
+#reg div.reg-info{
+    padding-top:20px;
+}
+.email{position:relative;}
+.sameuser{position:absolute; top:28px; right:132px; color:red; transition:1s;}
+.sameuser.hide{opacity:0;}
+.sameuser.show{opacity:1;}
+input{
+    width:450px;
+    height:30px;
+    font-size:14px;
+    color:#999;
+    outline:none;
+    text-indent:4px;
+}
+#reg p.err-info{
+    overflow:hidden;
+    transition:1s;
+}
+#reg p.hide{
+    height:0;
+}
+#reg p.show{
+    height:30px;
+    line-height:30px;
+    font-size:16px;
+    color:red;
+}
+#reg span{
+    float:left;
+    width:75px;
+    line-height:30px;
+}
+p.reg-details{
+    width:450px;
+    padding-left:75px;
+    color:#666;
+}
+#reg p.reg-error{
+    display:none;
+    color:red;
+}
+#reg .reg-btn{
+    margin:20px 0 0 200px;
+    font-size:18px;
+    cursor:pointer;
+}
+/*弹窗部分*/
+/*
+.msg{position:absolute; top:0; right:0; left:0; bottom:0; width:400px; height:400px; margin:auto; border:1px solid red;}
+*/

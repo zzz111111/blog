@@ -1,0 +1,65 @@
+<!--头部 start-->
+<div class="header">
+    <div class="header-fixed">
+        <div class="content clearfix">
+            <div id="logo" class="h-logo fl">
+                <a href="http://www.xiaoye121.com">Xiao Ye Blog</a>
+            </div>
+            <div class="h-login_user fl">
+                <%if(locals.username){%>
+                <div class="islogin">
+                    <div class="h-login-user">
+                        <a href="/admin">
+                            <img class="h-userimg_img" src="<%=locals.userimg%>" alt="">
+                            <p class="h-username"><%=locals.username%></p>
+                        </a>
+                        <div class="h-username-info">
+                            <p id="logout">注销</p>
+                        </div>
+                    </div>
+                    <a id="h-reg" href="/admin/reg">免费注册</a>
+                </div>
+                <%}else{%>
+                <a id="h-login" href="javascript:;">请登录</a>
+                <a id="h-reg" href="/admin/reg">免费注册</a>
+                <%}%>
+            </div>
+            <div class="h-nav fr">
+                <ul class="clearfix">
+                    <li><a href="/chatroom.html" target="_blank">web聊天室</a></li>
+                    <li><a href="/article/ue">我要写文</a></li>
+                    <li><a href="/article">最新文章</a></li>
+                    <li>关于博主</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--头部 end-->
+
+<!--登录注册功能 start-->
+<div id="login" class="">
+    <div class="login-info">
+        <h3>用户登录</h3>
+    </div>
+    <div class="login-input">
+        <div class="login-input-user-div login-input-div">
+            <i class="iconfont icon-yonghuming login-input-i"></i>
+            <input id="login-input-user" class="login-input-input" type="text" placeholder="用户名/邮箱">
+        </div>
+        <div class="login-input-password-div login-input-div">
+            <i class="iconfont icon-mima1 login-input-i"></i>
+            <input id="login-input-password" class="login-input-input" type="password" placeholder="密码">
+        </div>
+    </div>
+    <div class="login-remember-user clearfix">
+        <input class="login-checkbox fl" type="checkbox" id="login-remember-user"><label for="login-remember-user">记住账号</label>
+        <a class="forget-user fr" href="javascript:;">忘记账号或密码</a>
+    </div>
+    <div class="login-btn">
+        <a class="login-btn-a" href="javascript:;">登录</a>
+    </div>
+</div>
+<!--登录注册功能 end-->
+<script src="/js/header.js"></script>
