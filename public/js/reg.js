@@ -96,12 +96,21 @@
                 data:data,
                 success:function (data) {
                     console.log(data);
-                    if(data === '成功'){
+                    if(data.status === 200){
                         alert('注册成功');
+                        // 这里返回上一页吧
+
+                    }else if(data.status === 400){
+                        alert('邮箱已被注册');
+                    }else if(data.status === 500){
+                        alert('服务繁忙，请稍后再试');
+                    }else{
+                        alert('注册失败，错误码: ' + data.status);
                     }
                 },
                 error:function (err) {
-
+                    console.log(err);
+                    alert('服务繁忙，请稍后再试');
                 }
             })
         }else{

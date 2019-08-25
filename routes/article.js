@@ -1,12 +1,14 @@
 const express = require('express'),
     router = express.Router(),
     sql = require('../module/mysql'),
+    path = require('path'),
     fs = require('fs');
 
 var searchValue = '';  //这里保存着模糊查询的值
 
-
 router.get('/',(req,res)=>{
+    // console.log('打印一点点欧尼熊');
+    console.log(req.session.userinfo);
     sql('SELECT bloguserid,username,userimg,articleid,title,tag,userid,img,time,readcout,zan,introduce FROM article2,bloguser where article2.userid = bloguser.bloguserid order by articleid desc limit 0,7',(err,data)=>{
         if(err) throw err;
         sql('select count(*) AS count from article2',(err1,data1)=>{
@@ -16,23 +18,53 @@ router.get('/',(req,res)=>{
                 sql('select articleid,title from article2 order by readcout desc limit 10',(err3,data3)=>{
                     if(err3) throw err3;
                     sql('select tag,count(*) as count from article2 group by tag',(err4,data4)=>{
-                        sql('select username,userimg,title,articlepinglun.content,articlepinglun.articleid from article2,articlepinglun,bloguser where articlePinglun.userid = bloguser.bloguserid and articlepinglun.articleid = article2.articleid order by articlepinglun.id desc limit 3',(err5,data5)=>{
-                            if(err5) throw err5;
-                            res.render('article',{
-                                articleData:data,  //倒叙查询的是前7条文章
+                        res.render("article",{
+                            articleData:data,  //倒叙查询的是前7条文章
                                 articleCout:data1[0]['count'], //查询的是文章数量
                                 titleArticle:data2[0], //查询文章首页置顶的文章
                                 articleReadCount:data3,    //阅读量最多的文章排行
                                 articleType:data4,    //文章类型 以及个数
-                                articlePinglun:data5  //查询文章最新三条评论信息
-                            });
-                        });
+                        })
+                        // sql('select username,userimg,title,articlepinglun.content,articlepinglun.articleid from article2,articlepinglun,bloguser where articlePinglun.userid = bloguser.bloguserid and articlepinglun.articleid = article2.articleid order by articlepinglun.id desc limit 3',(err5,data5)=>{
+                        //     if(err5) throw err5;
+                        //     res.send({
+                                
+                        //         articlePinglun:data5  //查询文章最新三条评论信息
+                        //     });
+                        // });  
                     });
+                    
                 });
             });
-
         });
     });
+
+    // sql('SELECT bloguserid,username,userimg,articleid,title,tag,userid,img,time,readcout,zan,introduce FROM article2,bloguser where article2.userid = bloguser.bloguserid order by articleid desc limit 0,7',(err,data)=>{
+    //     if(err) throw err;
+    //     sql('select count(*) AS count from article2',(err1,data1)=>{
+    //         if(err1) throw err1;
+    //         sql('select articleid,title,introduce,username from article2,bloguser where bloguser.bloguserid=article2.userid and articleid = ?',[11],(err2,data2)=>{
+    //             if(err2) throw err2;
+    //             sql('select articleid,title from article2 order by readcout desc limit 10',(err3,data3)=>{
+    //                 if(err3) throw err3;
+    //                 sql('select tag,count(*) as count from article2 group by tag',(err4,data4)=>{
+    //                     sql('select username,userimg,title,articlepinglun.content,articlepinglun.articleid from article2,articlepinglun,bloguser where articlePinglun.userid = bloguser.bloguserid and articlepinglun.articleid = article2.articleid order by articlepinglun.id desc limit 3',(err5,data5)=>{
+    //                         if(err5) throw err5;
+    //                         res.render('article',{
+    //                             articleData:data,  //倒叙查询的是前7条文章
+    //                             articleCout:data1[0]['count'], //查询的是文章数量
+    //                             titleArticle:data2[0], //查询文章首页置顶的文章
+    //                             articleReadCount:data3,    //阅读量最多的文章排行
+    //                             articleType:data4,    //文章类型 以及个数
+    //                             articlePinglun:data5  //查询文章最新三条评论信息
+    //                         });
+    //                     });
+    //                 });
+    //             });
+    //         });
+
+    //     });
+    // });
 });
 
 //获得第几页文章
@@ -145,7 +177,9 @@ router.post('/submit',(req,res)=>{
     var data2 = imgData.replace(/^data:image\/\w+;base64,/,""),
         dataBuffer = Buffer.from(data2,"base64"),
         filename = Date.now();
-    fs.writeFile(`../public/images/article-upload/${filename}.png`,dataBuffer,(err,data)=>{
+        console.log('文件位置');
+        console.log(path.join(__dirname,'..','public/images/article-upload/',filename+'png'));
+    fs.writeFile(path.join(__dirname,'..','public/images/article-upload/',filename+'.png'),dataBuffer,(err,data)=>{
         sql('insert into article2 (articleid,title,tag,userid,content,img,time,readcout,zan,introduce) values (0,?,?,?,?,?,?,?,?,?)',
             [articleTitle,articleType,req.cookies['login'].id,articleContent,'/images/article-upload/'+filename+'.png',time(),0,0,articleIntroduce],(err,data)=>{
                 if(err) throw err;

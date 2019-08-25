@@ -203,24 +203,7 @@
                 </a>
             </h3>
             <ul class="reping-list">
-                <%for(var i=0;i<articlePinglun.length;i++){%>
-                <li class="list-item">
-                    <div class="reping-avatar">
-                        <img width="50" height="50" src="<%=articlePinglun[i]['userimg']%>" alt="">
-                    </div>
-                    <div class="contavatar">
-                        <span class="reping-nickname"><%=articlePinglun[i]['username']%></span>
-                        <span class="reping-content">
-                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank"><%=articlePinglun[i]['title']%></a>
-                            </span>
-                        <span class="reping-title">
-                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank">
-                                    评:<%=articlePinglun[i]['content']%>
-                                </a>
-                            </span>
-                    </div>
-                </li>
-                <%}%>
+                <!--  此处把 评论省略了 报错 -->
             </ul>
         </div>
         <div class="conr-article-webinfo base-com">

@@ -1,5 +1,6 @@
-<!doctype html>  <!-- 声明文档类型-->
+<!doctype html> <!-- 声明文档类型-->
 <html>
+
 <head>
     <!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
@@ -15,10 +16,11 @@
     <script src="/js/Z-1.0.0.js"></script>
 
 </head>
-<body>
-<% include header.ejs %>
 
-<!--main start-->
+<body>
+    <% include header.ejs %>
+
+    <!--main start-->
     <div class="main content">
         <div class="main-ar fl">
             <div class="container-left-top">
@@ -57,7 +59,8 @@
                     <div class="text-right">
                         <h2>
                             <span><a href=""><%=articleData[i]['tag']%></a></span>
-                            <a href="/article/<%=articleData[i]['articleid']%>.html" target="_blank"><%=articleData[i]['title']%></a>
+                            <a href="/article/<%=articleData[i]['articleid']%>.html"
+                                target="_blank"><%=articleData[i]['title']%></a>
                         </h2>
                         <div class="entry-meta">
                             <a href="">个人博客</a>
@@ -77,7 +80,7 @@
                             <span>
                                 <i class="iconfont icon-shijian"></i>
                                 &nbsp;<%=articleData[i]['time']%>
-                           </span>
+                            </span>
                             <span>
                                 <i class="iconfont icon-liulan2"></i>
                                 &nbsp;<%=articleData[i]['readcout']%>
@@ -131,11 +134,12 @@
                 </h3>
                 <ul>
                     <%for(var k=0;k<articleReadCount.length;k++){%>
-                    <li>
-                        <em><%=(k+1)%></em>
-                        <a href="/article/<%=articleReadCount[k]['articleid']%>.html" target="_blank"><%=articleReadCount[k]['title']%></a>
-                    </li>
-                    <%}%>
+                <li>
+                    <em><%=(k+1)%></em>
+                    <a href="/article/<%=articleReadCount[k]['articleid']%>.html"
+                        target="_blank"><%=articleReadCount[k]['title']%></a>
+                </li>
+                <%}%>
                 </ul>
             </div>
             <div class="conr-article-type base-com">
@@ -147,8 +151,8 @@
                 </h3>
                 <div class="items clearfix">
                     <%for(var i=0;i<articleType.length;i++){%>
-                    <a href=""><%=articleType[i]['tag']%>(<span><%=articleType[i]['count']%></span>)</a>
-                    <%}%>
+                <a href=""><%=articleType[i]['tag']%>(<span><%=articleType[i]['count']%></span>)</a>
+                <%}%>
                 </div>
             </div>
             <div class="conr-article-reping base-com">
@@ -158,26 +162,7 @@
                         最新评论
                     </a>
                 </h3>
-                <ul class="reping-list">
-                    <%for(var i=0;i<articlePinglun.length;i++){%>
-                    <li class="list-item">
-                        <div class="reping-avatar">
-                            <img width="50" height="50" src="<%=articlePinglun[i]['userimg']%>" alt="">
-                        </div>
-                        <div class="contavatar">
-                            <span class="reping-nickname"><%=articlePinglun[i]['username']%></span>
-                            <span class="reping-content">
-                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank"><%=articlePinglun[i]['title']%></a>
-                            </span>
-                            <span class="reping-title">
-                                <a href="/article/<%=articlePinglun[i]['articleid']%>.html" target="_blank">
-                                    评:<%=articlePinglun[i]['content']%>
-                                </a>
-                            </span>
-                        </div>
-                    </li>
-                    <%}%>
-                </ul>
+                
             </div>
             <div class="conr-article-webinfo base-com">
                 <h3 class="base-com-title">
@@ -188,19 +173,20 @@
                 </h3>
                 <ul>
                     <li>文章: <span><%=articleCout%></span>篇</li>
-                    <li>分类: <span><%=articleType.length%></span>个</li>
-                    <li>运行: <span id="article-right_day">计算中--</span>天</li>
-                    <li>访问: <span>100</span>次</li>
-                    <li>更新: <span><%=articleData[0]['time']%></span></li>
-                </ul>
-            </div>
+                <li>分类: <span><%=articleType.length%></span>个</li>
+                <li>运行: <span id="article-right_day">计算中--</span>天</li>
+                <li>访问: <span>100</span>次</li>
+                <li>更新: <span><%=articleData[0]['time']%></span></li>
+            </ul>
         </div>
-        <!--article right end-->
+    </div>
+    <!--article right end-->
     </div>
 
-<!--main end-->
-<%include footer.ejs%>
+    <!--main end-->
+    <%include footer.ejs%>
     <script src="/js/article.js"></script>
 
-</body>	
+</body>
+
 </html>

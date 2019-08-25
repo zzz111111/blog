@@ -33,7 +33,7 @@ body{background:url('../images/body/background.jpg') no-repeat; transition:1s;}
 /*头部 end*/
 
 /*登录注册  start*/
-#login{display:none; overflow:hidden; position:absolute; z-index:100; top:0; left:0; right:0; bottom:0; margin:auto; width:330px; height:232px; padding:36px 35px 40px; background-color:#fff; box-shadow:3px 3px 5px rgba(0,0,0,.5); opacity:0; transition:1.6s;}
+#login{display:none; overflow:hidden; position:fixed; z-index:100; top:0; left:0; right:0; bottom:0; margin:auto; width:330px; height:232px; padding:36px 35px 40px; background-color:#fff; box-shadow:3px 3px 5px rgba(0,0,0,.5); opacity:0; transition:1.6s;}
 #login.login-show{ opacity:1;}
 .login-info h3{font-size:20px; font-weight:400; color:#222; font-style:normal;}
 .login-input{margin-top:5px;}

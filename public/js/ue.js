@@ -21,11 +21,11 @@
 
 (function () {
     var ue = UE.getEditor('editor');
-    function isFocus(e){
+    function isFocus(e) {
         alert(UE.getEditor('editor').isFocus());
         UE.dom.domUtils.preventDefault(e)
     }
-    function setblur(e){
+    function setblur(e) {
         UE.getEditor('editor').blur();
         UE.dom.domUtils.preventDefault(e)
     }
@@ -137,53 +137,53 @@
 
 
 
-       Z.addEvent(oSubmit,'click',function () {
-           data.articleTitle = articleTitle.value;
-           var aAudio = document.getElementsByName('article-type');
-           for(var i=0;i<aAudio.length;i++){
-               if(aAudio[i].checked === true){
-                   data.articleType = aAudio[i].value;
-               }
-           }
-           data.articleContent = getContent();
-           data.introduce = getContentTxt().slice(0,100);
-           console.log(data);
+    Z.addEvent(oSubmit, 'click', function () {
+        data.articleTitle = articleTitle.value;
+        var aAudio = document.getElementsByName('article-type');
+        for (var i = 0; i < aAudio.length; i++) {
+            if (aAudio[i].checked === true) {
+                data.articleType = aAudio[i].value;
+            }
+        }
+        data.articleContent = getContent();
+        data.introduce = getContentTxt().slice(0, 100);
+        console.log(data);
 
-           if(data.articleTitle === ''){
-               alert('文章标题不为空');
-               return;
-           }else if(data.articleType === undefined){
-               alert('请选择发表的文章类别');
-               return ;
-           }else if( data.articleContent.length <= 200){
-               alert('文章的字数要大于200字');
-               return ;
-           }else if(data.imgData64 === undefined){
-               alert('请选择上传图片');
-               return ;
-           }
-           console.log('运行到这里了吗');
-           $.ajax({
-               type:"post",
-               url:"/article/submit",
-               data:data,
-               success:function (data) {
-                   console.log(data);
-                   if(data === '发表成功'){
-                       alert('发表成功');
-                   }else{
-                       console.log('发表失败');
-                   }
-               },
-               error:function (err) {
-                   console.log(err);
-                   alert('发表失败');
-               }
-           })
-       });
+        if (data.articleTitle === '') {
+            alert('文章标题不为空');
+            return;
+        } else if (data.articleType === undefined) {
+            alert('请选择发表的文章类别');
+            return;
+        } else if (data.articleContent.length <= 200) {
+            alert('文章的字数要大于200字');
+            return;
+        } else if (data.imgData64 === undefined) {
+            alert('请选择上传图片');
+            return;
+        }
+        console.log('运行到这里了吗');
+        $.ajax({
+            type: "post",
+            url: "/article/submit",
+            data: data,
+            success: function (data) {
+                console.log(data);
+                if (data === '发表成功') {
+                    alert('发表成功');
+                } else {
+                    console.log('发表失败');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert('发表失败');
+            }
+        })
+    });
 
 
-    Z.addEvent(fileInput,'change',function () {
+    Z.addEvent(fileInput, 'change', function () {
         var oFile = this.files[0];
         showImg(oFile);
     });
@@ -194,7 +194,7 @@
     };
 
     //可以让东西放到元素上
-    oImgDrop.ondragover = function(e){
+    oImgDrop.ondragover = function (e) {
         e = e || window.event;
         e.preventDefault();
         e.stopPropagation();
@@ -229,7 +229,5 @@
         oRight.innerHTML = '';
         oRight.appendChild(img);
     }
-
-
-
+    
 })();

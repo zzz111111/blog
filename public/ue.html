@@ -1,9 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
     <title>完整demo</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/ue.css">
     <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
@@ -11,22 +11,39 @@
     <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"> </script>
     <script src="/js/Z-1.0.0.js"></script>
 </head>
+
 <body>
-<div class="article-info content">
-    文章标题 <input type="text">
-</div>
-<!--<div>
+    <div class="article-info content">
+        文章标题 <input type="text">
+    </div>
+    <!--<div>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;margin:auto;"></script>
     </div>-->
 
     <div class="article-otherinfo ">
-        <input type="radio" id="article-other-person" name="article-type" value=""> <label for="article-other-person">个人情感</label>
+        <input type="radio" id="article-other-person" name="article-type" value=""> <label
+            for="article-other-person">个人情感</label>
         <input type="radio" id="article-other-web" name="article-type"> <label for="article-other-web">前端文章</label>
-        <input type="radio" id="article-other-othertype" name="article-type"> <label for="article-other-othertype">其他分类</label>
+        <input type="radio" id="article-other-othertype" name="article-type"> <label
+            for="article-other-othertype">其他分类</label>
     </div>
 
 
 
-        <script src="/js/ue.js"></script>
+    <script src="/js/ue.js"></script>
+    <script>
+
+        var form = new FormData();
+        form.append('user', '1234');
+        form.append('pasword', '123');
+        form.append('img', files);
+
+        $.ajax({
+            
+        })
+    
+    
+    </script>
 </body>
+
 </html>
