@@ -1,9 +1,9 @@
-const express = require('express'),
-    router = express.Router(),
-    sql = require('../module/mysql'),
-    crypto = require('crypto'),
-    path = require('path'),
-    fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const sql = require('../module/mysql');
+const crypto = require('crypto');
+const path = require('path');
+const fs = require('fs');
 
 //get post 任何形式的访问都会经过这一条路由
 router.use((req, res, next) => {
@@ -25,6 +25,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// 响应注册页面
 router.get('/reg', (req, res) => {
     res.render('reg');
 });
@@ -44,7 +45,7 @@ router.get('/checksameuser', (req, res) => {
             //已经有了 不可以注册了
             res.send(false);
         }
-    })
+    });
 });
 
 /**
@@ -63,7 +64,7 @@ router.get('/checksameuser', (req, res) => {
 
 router.post('/reguser', (req, res) => {
     console.log('用户注册');
-    var {username, email, password} = req.body;
+    var { username, email, password } = req.body;
 
     var md5 = crypto.createHash('md5'),
         md5Password = md5.update(password).digest('hex');
@@ -103,16 +104,26 @@ router.post('/reguser', (req, res) => {
     })
 });
 
-//用户登录
+/**
+ * 用户登录
+ * @param {String} user 用户名
+ * @param {String} password 密码
+ * 
+ * @return 
+ *  {status: 101, msg: '用户不存在'}
+ *  {status: 200, msg: '登录成功'}
+ *  {status: 400, msg: '登录失败'}
+ */
 router.post('/login', (req, res) => {
-    var user = req.body.user,
-        password = req.body.password,
-        md5 = crypto.createHash('md5');
+    var { user, password } = req.body;
+    var md5 = crypto.createHash('md5');
 
     sql('select * from bloguser where useremail = ?', [user], (err, data) => {
         if (err) throw err;
+        console.log('查询用户');
+        console.log(data);
         if (data.length === 0) {
-            res.send('用户名或密码错误101'); //用户名不存在
+            res.send({ status: 101, msg: '用户不存在' }); //用户名不存在
             return;
         }
         var sqlData = data[0];
@@ -125,14 +136,14 @@ router.post('/login', (req, res) => {
             req.session.userinfo = sqlData;  //将当前登录的所有信息都保存到 req.session.userinfo中
             console.log(req.session);
 
-            res.send('登录成功');
+            res.send({ status: 200, msg: '登录成功' });
             // var nowTime = new Date();
             // var loginInfo = `user:${user} login in time ${nowTime.getFullYear()}-${nowTime.getMonth()+1}-${nowTime.getDate()}日${format(nowTime.getHours())}:${format(nowTime.getMinutes())}:${format(nowTime.getSeconds())} \n`;
             // fs.appendFile('../log/dologin.log',loginInfo,(err)=>{
             //     if(err) throw err;
             // })
         } else {
-            res.send('用户名或密码错误102');
+            res.send({ status: 400, msg: '登录失败' });
         }
     });
 });
