@@ -1,9 +1,9 @@
 (function () {
     //验证的正则表达式
     var reg = {
-        "user":/^.{1,8}$/,
-        "email" : /^[1-9A-Za-z]\w{5,19}@[1-9a-z]{2,7}\.[a-z]{2,5}$/,
-        "password" : /^[\w!@#$%^&*()_+\-=/{}\[\]:";',.\/]{6,20}$/
+        "user": /^.{1,8}$/,
+        "email": /^[1-9A-Za-z]\w{5,19}@[1-9a-z]{2,7}\.[a-z]{2,5}$/,
+        "password": /^[\w!@#$%^&*()_+\-=/{}\[\]:";',.\/]{6,20}$/
     };
 
     var oReg = document.getElementById('reg'),
@@ -17,126 +17,106 @@
         isSameUser;
 
 
-    for(var i=0;i<aInputLength;i++){
+    for (var i = 0; i < aInputLength; i++) {
         aInput[i].index = i;
-        Z.addEvent(aInput[i],'input',function () {
+        Z.addEvent(aInput[i], 'input', function () {
             var type = this.name;
-            if(type === 'password2'){
+            if (type === 'password2') {
                 //第二次输入密码
-                if(passwordInput.value === this.value){
+                if (passwordInput.value === this.value) {
                     //两次密码一致
                     aErrorInfo[this.index].className = 'reg-details err-info hide';
-                }else{
+                } else {
                     //两次密码不一致
                     aErrorInfo[this.index].className = 'reg-details err-info show';
                 }
-            }else{
+            } else {
                 //其他的表单验证
-                if(reg[type].test(this.value)){
+                if (reg[type].test(this.value)) {
                     //成立
                     aErrorInfo[this.index].className = 'reg-details err-info hide';
-                }else{
+                } else {
                     //不成立
                     aErrorInfo[this.index].className = 'reg-details err-info show';
                 }
             }
-            if(this.value === ''){
+            if (this.value === '') {
                 aErrorInfo[this.index].className = 'reg-details err-info hide';
             }
         });
     }
     //检查是否有相同的用户名
-    Z.addEvent(aInput[1],'blur',function () {
-        if(reg.email.test(this.value)){
+    Z.addEvent(aInput[1], 'blur', function () {
+        if (reg.email.test(this.value)) {
             //符合条件吗
             Z.ajax({
-                url:"/admin/checksameuser",
-                data:{
-                  email:this.value
+                url: "/admin/checksameuser",
+                data: {
+                    email: this.value
                 },
-                success:function (data) {
-                    isSameUser = data;
-                    if(data === 'false'){
-                        Z(oSameuser).removeClass('hide').addClass('show');
-                    }else{
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.status === 200) {
+                        isSameUser = false;
                         Z(oSameuser).removeClass('show').addClass('hide');
+                    } else if (data.status === 400) {
+                        isSameUser = true;
+                        Z(oSameuser).removeClass('hide').addClass('show');
                     }
                 },
-                error:function (err) {
+                error: function (err) {
                     console.log(err);
                 }
             })
-        }else{
+        } else {
             //不符合条件
             console.log('不符合条件');
         }
     });
 
 
-
-    Z.addEvent(oRegBtn,'click',function () {
-        for(var i=0;i<aInputLength;i++){
-            if(aInput[i].value === ''){
+    Z.addEvent(oRegBtn, 'click', function () {
+        for (var i = 0; i < aInputLength; i++) {
+            if (aInput[i].value === '') {
                 alert('部分内容没有填写，请把信息填写完成再注册');
-                return ;
+                return;
             }
         }
-        if(isSameUser === 'false'){
+        if (isSameUser === true) {
             alert('用户名已经存在，请修改');
-            return ;
+            return;
         }
-        if(errCount.length === 0){
+        if (errCount.length === 0) {
             var data = {};
             data.username = aInput[0].value;
             data.email = aInput[1].value;
             data.password = aInput[2].value;
             Z.ajax({
-                type:"post",
-                url:"/admin/reguser",
-                data:data,
-                success:function (data) {
+                type: "post",
+                url: "/admin/reguser",
+                data: data,
+                success: function (data) {
+                    data = JSON.parse(data);
                     console.log(data);
-                    if(data.status === 200){
+                    if (data.status === 200) {
                         alert('注册成功');
                         // 这里返回上一页吧
-
-                    }else if(data.status === 400){
+                        window.history.go(-1);
+                    } else if (data.status === 400) {
                         alert('邮箱已被注册');
-                    }else if(data.status === 500){
+                    } else if (data.status === 500) {
                         alert('服务繁忙，请稍后再试');
-                    }else{
+                    } else {
                         alert('注册失败，错误码: ' + data.status);
                     }
                 },
-                error:function (err) {
+                error: function (err) {
                     console.log(err);
                     alert('服务繁忙，请稍后再试');
                 }
             })
-        }else{
+        } else {
             alert('有信息框还不满足条件，请继续填写')
         }
     })
-
-
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

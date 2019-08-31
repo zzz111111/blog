@@ -1,25 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('../module/mysql');
-const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
+const { checkExist, _result } = require('../module/result');
+const utils = require('../utils/utils');
 
 //get post 任何形式的访问都会经过这一条路由
-router.use((req, res, next) => {
-    console.log('这里会走到吗');
-    next();
-});
+// router.use((req, res, next) => {
+//     console.log('这里会走到吗');
+//     next();
+// });
 
-//用户信息
+/**
+ * 查看个人信息主页
+ */
 router.get('/', (req, res) => {
-    sql('select * from bloguser,(SELECT * FROM article2 where userid = ? order by articleid desc limit 0,7) A where A.userid = bloguser.bloguserid', [req.cookies['login'].id], (err, data) => {
+    // 用户id
+    let loginCookie = req.cookies['login'];
+    if (!loginCookie) {
+        // loginCookie不存在
+        return res.render('404');
+    }
+    let userid = req.cookies['login'].id;
+    let checkResult = checkExist({ userid });
+    if (checkResult) {
+        // 用户id为空重新登录
+        return res.render('404');
+    }
+
+    sql('select * from bloguser,(SELECT * FROM article2 where userid = ? order by articleid desc limit 0,7) A where A.userid = bloguser.bloguserid', [userid], (err, data) => {
         if (err) throw err;
         //console.log(data);
-        sql('select articleid from article2', (err1, data1) => {
+        sql('select count(articleid) as count from article2 where userid = ?', [userid], (err1, data1) => {
+            console.log({
+                articleData: data,
+                articleCout: data1[0].count
+            });
             res.render('userinfo', {
                 articleData: data,
-                articleCout: data1.length
+                articleCout: data1[0].count
             });
         });
     });
@@ -34,16 +54,28 @@ router.get('/getcookielogin', (req, res) => {
     res.send(req.cookies['login']);
 });
 
-//注册时检查是否有相同的用户名
+/**
+ * 注册时检查是否有相同的用户名
+ * @param {email} 邮箱 用户名
+ * @return 
+ *  {status: 200, data: 'ok'} 表示可以注册
+ *  {status: 400, data: false} 表示已经被注册了
+ *  
+ */
 router.get('/checksameuser', (req, res) => {
-    sql('select * from bloguser where useremail = ?', [req.query.email], (err, data) => {
+    let { email } = req.query;
+    let checkResult = checkExist({ email });
+    if (checkResult) {
+        return res.send(_result('用户名不存在', 40001));
+    }
+    sql('select * from bloguser where useremail = ?', [email], (err, data) => {
         if (err) throw err;
         if (data.length === 0) {
             //没有符合条件的 表示可以注册
-            res.send(true);
+            res.send(_result('ok'));
         } else {
             //已经有了 不可以注册了
-            res.send(false);
+            res.send(_result(false, 400));
         }
     });
 });
@@ -61,35 +93,38 @@ router.get('/checksameuser', (req, res) => {
  *  {stasus: 400, msg: '该用户已被注册'}
  *  {status: 500, msg: '服务繁忙，请稍后再试'}
  */
-
 router.post('/reguser', (req, res) => {
     console.log('用户注册');
-    var { username, email, password } = req.body;
+    let { username, email, password } = req.body;
+    let checkResult = checkExist({ username, email, password });
+    if (checkResult) {
+        return res.send(_result(checkResult, 40001));
+    }
 
-    var md5 = crypto.createHash('md5'),
-        md5Password = md5.update(password).digest('hex');
+    // let md5 = crypto.createHash('md5'),
+    // md5Password = md5.update(password).digest('hex');
+    let md5Password = utils.encryption(password);
     sql(`select * from bloguser where useremail = ?`, [email], (err, userArr) => {
         if (err) {
             console.log('查询用户信息失败,错误信息如下：');
             console.log(err);
-            return res.send({ status: 500, msg: '服务繁忙，请稍后再试' });
+            return res.send(_result('服务繁忙，请稍后再试', 500));
         }
         // console.log('查看查询到的用户信息');
         // console.log(userArr);
         if (userArr.length !== 0) {
             // 此处是被他人注册了
-            return res.send({ status: 400, msg: '该账号已被注册' });
+            return res.send(_result('该账号已被注册', 400));
         }
         // 走到这里说明没有被注册
         sql('INSERT INTO bloguser (bloguserid,username,useremail,pass,userimg,admin) VALUES (0,?,?,?,?,?)', [username, email, md5Password, '/images/users/p1.jpg', 'no'], (err, data) => {
             if (err) {
                 console.log('注册逻辑写入失败,错误信息如下：');
                 console.log(err);
-                return res.send({ status: 500, msg: '服务繁忙，请稍后再试' });
+                return res.send(_result('服务繁忙，请稍后再试', 500));
             };
             if (data) {
-                res.send({ status: 200, msg: '注册成功' });
-
+                res.send(_result('注册成功', 200));
                 var nowTime = new Date();
                 var regInfo = `user:${email} register in time ${nowTime.getFullYear()}-${nowTime.getMonth() + 1}-${nowTime.getDate()}日${format(nowTime.getHours())}:${format(nowTime.getMinutes())}:${format(nowTime.getSeconds())} \n`;
 
@@ -110,24 +145,24 @@ router.post('/reguser', (req, res) => {
  * @param {String} password 密码
  * 
  * @return 
- *  {status: 101, msg: '用户不存在'}
- *  {status: 200, msg: '登录成功'}
- *  {status: 400, msg: '登录失败'}
+ *  {status: 101, data: '用户不存在'}
+ *  {status: 200, data: '登录成功'}
+ *  {status: 400, data: '登录失败'}
  */
 router.post('/login', (req, res) => {
     var { user, password } = req.body;
-    var md5 = crypto.createHash('md5');
-
+    let checkResult = checkExist({ user, password });
+    if (checkResult) {
+        return res.send(_result(checkResult, 40001));
+    }
     sql('select * from bloguser where useremail = ?', [user], (err, data) => {
         if (err) throw err;
-        console.log('查询用户');
-        console.log(data);
         if (data.length === 0) {
-            res.send({ status: 101, msg: '用户不存在' }); //用户名不存在
-            return;
+            return res.send(_result('用户不存在', 101)); //用户名不存在
         }
         var sqlData = data[0];
-        var newpass = md5.update(password).digest('hex');  //编码格式hex
+        var newpass = utils.encryption(password);
+
         var username = sqlData['username'];
         if (sqlData['pass'] === newpass) {
             //登录成功
@@ -135,15 +170,14 @@ router.post('/login', (req, res) => {
             res.cookie('login', { name: username, id: sqlData['bloguserid'], userimg: sqlData['userimg'] }, { maxAge: 1000 * 60 * 60 * 24 });
             req.session.userinfo = sqlData;  //将当前登录的所有信息都保存到 req.session.userinfo中
             console.log(req.session);
-
-            res.send({ status: 200, msg: '登录成功' });
+            return res.send(_result('登录成功'));
             // var nowTime = new Date();
             // var loginInfo = `user:${user} login in time ${nowTime.getFullYear()}-${nowTime.getMonth()+1}-${nowTime.getDate()}日${format(nowTime.getHours())}:${format(nowTime.getMinutes())}:${format(nowTime.getSeconds())} \n`;
             // fs.appendFile('../log/dologin.log',loginInfo,(err)=>{
             //     if(err) throw err;
             // })
         } else {
-            res.send({ status: 400, msg: '登录失败' });
+            res.send(_result('登录失败', 400));
         }
     });
 });
@@ -163,7 +197,9 @@ router.get('/list-:page.html', (req, res) => {
 });
 
 
-//用户注销
+/**
+ * 用户注销
+ */
 router.get('/logout', (req, res) => {
     res.clearCookie('login'); //清除cookie
     req.session.userinfo = '';

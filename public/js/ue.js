@@ -171,6 +171,7 @@
                 console.log(data);
                 if (data === '发表成功') {
                     alert('发表成功');
+                    window.history.go(-1);
                 } else {
                     console.log('发表失败');
                 }

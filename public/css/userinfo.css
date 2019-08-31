@@ -48,4 +48,8 @@ i.space{padding:0 10px; color:#a5a5a5; font-style:normal;}
 .pagesnav a.on:hover{color:#fff; background:#28e1bd;}
 
 /*article end*/
+.no-article{
+  padding: 100px 0 100px 0;
+  color: #0099ff;
+}
 

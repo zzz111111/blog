@@ -4,12 +4,9 @@ var mysql = require('mysql');
  */
 module.exports = function (sql, val, callback) {
     var config = mysql.createConnection({
-        // host: "localhost", //数据库的地址
-        // user: "root",
-        // password: "kiss15081166065..",
-        host: "39.107.65.250", //数据库的地址
-        user: "admin",
-        password: "admin1",
+        host: "localhost", //数据库的地址
+        user: "root",
+        password: "kiss15081166065..",
         port: "3306", //数据库端口
         database: "blog"
     });

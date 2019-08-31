@@ -14,7 +14,6 @@
             var reg = /^(\/article\/list-)/;
             var reg1 = /(\.html)$/;
             index = str.replace(reg,'').replace(reg1,'');
-
             Z.ajax({
                 url: this.dataset.url,
                 success: function (data) {
@@ -106,7 +105,7 @@
         Z('.page').removeClass('on');
         Z(Z('.page')[index-1]).addClass('on');
         //点击页面中的页面按钮
-        var url = '/article/list-'+index+'.html';
+        var url = '/article/listself-'+index+'.html';
         Z.ajax({
             url: url,
             success: function (data) {
