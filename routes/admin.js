@@ -60,7 +60,6 @@ router.get('/getcookielogin', (req, res) => {
  * @return 
  *  {status: 200, data: 'ok'} 表示可以注册
  *  {status: 400, data: false} 表示已经被注册了
- *  
  */
 router.get('/checksameuser', (req, res) => {
     let { email } = req.query;
@@ -212,7 +211,6 @@ router.get('/updateuserinfo', (req, res) => {
     sql('select * from bloguser where bloguserid = ?', [req.cookies['login']['id']], (err, data) => {
         res.render('updateuserinfo', { userinfo: data[0] });
     });
-
 });
 
 //修改昵称
