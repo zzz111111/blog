@@ -1283,6 +1283,31 @@
         }
     };
 
+    /**
+     * 2019-9-4加入弹出层效果
+     */
+    // Z.message = {};
+    // Z.message.success = function(msg){
+    //     console.log('成功弹出层');
+    //     console.log(msg);
+    //     var oDom = document.getElementById('#success');
+    //     console.log(oDom)
+    //     // 如果dom不存在创建一个dom元素
+    //     if(!oDom){
+    //         var oDiv = document.createElement('div');
+    //         oDiv.id = 'success';
+    //         console.log(oDiv);
+    //     }
+    // };
+
+    // Z.message.error = function(){
+    //     console.log('失败弹出层');
+
+    // };
+
+    // Z.message.wran = function(){
+    //     console.log('警告弹出层');
+    // };
 
     window.Z = Z;
 

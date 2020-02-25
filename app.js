@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
-// app.use(express.static(__dirname+'/public'));
+
 app.use(session({
   resave: false,       //添加 resave 选项
   saveUninitialized: true,////添加 saveUninitialized 选项

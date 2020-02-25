@@ -61,6 +61,13 @@
         });
     }
 
+    // window.onload = function(){
+    //     console.log('页面加载结果');
+    //     Z.message.success('注册成功');
+    //     // Z.message.wran();
+    //     // Z.message.error();
+    // };
+
 
 })();
 

@@ -213,12 +213,38 @@ router.get('/updateuserinfo', (req, res) => {
     });
 });
 
-//修改昵称
+/**
+ * 修改昵称
+ * @param {String} value 要修改的名字
+ * 
+ * @return 
+ *  {status: 400, data: '用户未登录'}
+ * 
+ */
 router.get('/updateusername', (req, res) => {
-    var username = req.query.value;
+    console.log('访问到了我');
+
+    var {value} = req.query;
+    let isExit = checkExist({ value });
+    if(isExit){
+        return res.send(_result(isExit, 400001));
+    }
+    console.log(req.cookies);
+
     var loginCookie = req.cookies['login'];
+    console.log(loginCookie);
+    
+    if(!loginCookie){
+        return res.send(_result('用户未登录', 400));
+    }
+
     var id = loginCookie['id'];
-    sql('update bloguser set username=? where bloguserid=?', [username, id], (err, data) => {
+    console.log(id);
+
+    return ;
+
+    sql('update bloguser set username=? where bloguserid=?', [value, id], (err, data) => {
+
         if (err) throw err;
         if (data) {
             var userimg = loginCookie['userimg'];
@@ -227,8 +253,8 @@ router.get('/updateusername', (req, res) => {
             res.send('成功');
         }
     })
-
 });
+
 
 //修改其他信息
 router.get('/updateusersign', (req, res) => {
